@@ -239,7 +239,7 @@ public class l001{
 
     public static void GCC(ArrayList<Edge>[] graph , int src , boolean[] vis){
         int N = graph.length, componentCount =0;
-        boolean[] vis = new boolean[N];
+        // boolean[] vis = new boolean[N];
         for(int i =0; i< N ;i++){
            if(!vis[i]){
             dfs_GCC(graph,i,vis);
@@ -250,7 +250,7 @@ public class l001{
     }
 
     // on portal -- question is graph connected  // little bit change on above code.
-     public static boolean GCC(ArrayList<Edge>[] graph , int src , boolean[] vis){
+     public static boolean GCC_(ArrayList<Edge>[] graph , int src , boolean[] vis){
         int componentCount =0;
         int N = graph.length;
         for(int i =0; i< N ;i++){
@@ -336,6 +336,36 @@ public class l001{
         return maxSize;
     }
 
+    public static void hamiltonianPathCycle(ArrayList<Edge>[] graph, int osrc, int src, int edgeCount , boolean[] vis, String ans){
+
+        if(edgeCount == graph.length-1){
+            int idx = findEdge(graph,src,osrc);
+
+            if(idx != -1){
+                System.out.println(ans + src + "*");
+            }
+            else{
+                System.out.println(ans + src + ".");
+            }
+
+            return;
+        }
+
+        vis[src] = true;
+        for(Edge e : graph[src]){
+            if(!vis[e.nbr])
+                hamiltonianPathCycle(graph,osrc,e.nbr,edgeCount+1,vis,ans+src);
+        }
+
+        vis[src] = false;
+
+    }
+
+    public static void hamiltonianPathCycle_(ArrayList<Edge>[] graph, int src){
+        int N = graph.length;
+        boolean[] vis = new boolean[N];
+        hamiltonianPathCycle(graph,src,src,0,vis,"");
+    }
 
 
 
@@ -369,7 +399,9 @@ public class l001{
 
         // heaviestPath(graph,0,6);
 
-        ceilAndFloor(graph,0,42);
+        // ceilAndFloor(graph,0,42);
+
+        hamiltonianPathCycle_(graph,0);
    }
 
 
