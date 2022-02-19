@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class l001{
@@ -367,6 +368,42 @@ public class l001{
         hamiltonianPathCycle(graph,src,src,0,vis,"");
     }
 
+    public static void BFS(ArrayList<Edge>[] graph , int src , int dest){
+
+        LinkedList<Integer> que = new LinkedList<>();
+        int N = graph.length;
+        boolean[] vis = new boolean[N];
+
+        que.addLast(src);
+        int level = 0;
+
+        boolean isCyclePresent = false;
+        int shortestPath = -1;
+
+        while(que.size() != 0){
+            int size = que.size();
+            while(size-- > 0){
+                int rvtx = que.removeFirst();
+
+                if(vis[rvtx]){
+                    isCyclePresent = true;
+                    continue;
+                }
+
+                if(rvtx == dest){
+                    shortestPath = level;
+                }
+
+                vis[rvtx] = true;
+                for(Edge e : graph[rvtx]){
+                    if(!vis[e.nbr]){
+                        que.addLast(e.nbr);
+                    }
+                }
+            }
+        }
+    }
+
 
 
    public static void construction(){
@@ -401,7 +438,9 @@ public class l001{
 
         // ceilAndFloor(graph,0,42);
 
-        hamiltonianPathCycle_(graph,0);
+        // hamiltonianPathCycle_(graph,0);
+
+        BFS(graph,0,6);
    }
 
 
