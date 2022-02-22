@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Arrays;
 
 
 public class l001{
@@ -343,10 +344,10 @@ public class l001{
             int idx = findEdge(graph,src,osrc);
 
             if(idx != -1){
-                System.out.println(ans + src + "*");
+                System.out.println(ans + src + "*");  // cycle
             }
             else{
-                System.out.println(ans + src + ".");
+                System.out.println(ans + src + ".");  // path
             }
 
             return;
@@ -404,6 +405,219 @@ public class l001{
         }
     }
 
+    // is cycle present on portal
+    // see sir method below this code
+     public static boolean BFS(ArrayList<Edge>[] graph , int src ){
+       LinkedList<Integer> que = new LinkedList<>();
+       int N = graph.length;
+       boolean[] vis = new boolean[N];
+       
+       que.addLast(src);
+       int level = 0;
+       
+       boolean isCyclePresent = false;
+       int shortestPath = -1;
+       
+       while( que.size() != 0){
+           int size = que.size();
+           while(size-- > 0){
+               
+               int rvtx = que.removeFirst();
+               
+               if(vis[rvtx]){
+                   isCyclePresent = true;
+                   continue;
+               }
+               
+            //   if(rvtx == dest){
+            //       shortestPath = level;
+            //   }
+               
+               vis[rvtx] = true;
+               for(Edge e : graph[rvtx]){
+                   if(!vis[e.nbr]){
+                      que.addLast(e.nbr);
+                   }
+               }
+           }
+       }
+       
+       return isCyclePresent;
+   }
+   // here we have to call BFS for every vertex because our graph 
+   // can be disconnected . so we have to pass every vertecx.
+   // if cycle is not present in first component then it might be present in the second or third or ahead components.
+   public static boolean BFS_(ArrayList<Edge>[] graph){
+       int N = graph.length;
+       boolean ans = false;
+       for(int i =0; i< N; i++){
+        ans = ans ||  BFS(graph,i);
+       }
+       return ans;
+   } 
+
+   // sir method
+   public static boolean cycleDetection(ArrayList<Edge>[] graph, int src , boolean[] vis){
+       LinkedList<Integer> que = new LinkedList<>();
+       que.addLast(src);
+
+       while(que.size() != 0){
+           int size = que.size();
+           while(size-- > 0){
+               int rvtx = que.removeFirst();
+
+               if(vis[rvtx]) return true;
+
+               vis[rvtx] = true;
+               for(Edge e : graph[rvtx]){
+                   if(!vis[e.nbr])
+                    que.addLast(e.nbr);
+               }
+           }
+       }
+
+       return false;
+   }
+
+   public static void cycleDetection(ArrayList<Edge>[] graph){
+        int N = graph.length;
+        boolean[] vis = new boolean[N];
+        boolean res = false;
+        for(int i =0 ; i < N; i++){
+            if(!vis[i])
+                res = res || cycleDetection(graph,i,vis);
+        }
+        System.out.println(res);
+   }
+
+    // shortest path in terms of edges
+    // on portal it is in terms of weight
+    public static class BFS_pair{
+        int vtx = 0;
+        String psf = "";
+        int wsf = 0;
+
+        public BFS_pair(int vtx , String psf , int wsf){
+            this.vtx = vtx;
+            this.psf = psf;
+            this.wsf = wsf;
+        }
+    }
+    public static void printBFSPath(ArrayList<Edge>[] graph , int src){
+        
+        int N = graph.length;
+        boolean[] vis = new boolean[N];
+        LinkedList<BFS_pair> que = new LinkedList<>();
+       
+        que.addLast(new BFS_pair(src, src+"", 0));
+
+        while(que.size() != 0){
+            int size = que.size();
+            while(size-- > 0){
+                BFS_pair rp = que.removeFirst();
+
+                if(vis[rp.vtx]) continue;
+
+                System.out.println(rp.vtx + "->" + rp.psf + "@" + rp.wsf);
+                vis[rp.vtx] = true;
+                for(Edge e : graph[rp.vtx]){
+                    if(!vis[e.nbr])
+                        que.addLast(new BFS_pair(e.nbr,rp.psf + e.nbr, rp.wsf + e.wt));
+                }
+            }
+        }
+    }
+
+    public static int spreadInfection(ArrayList<Edge>[] graph , int infectedPerson , int noOfDays){
+        LinkedList<Integer> que = new LinkedList<>();
+        boolean[] vis = new boolean[graph.length];
+
+        que.addLast(infectedPerson);
+
+        int infectedCount = 0, day = 1;
+
+        while(que.size() != 0){
+            int size = que.size();
+
+            if(day > noOfDays)
+                break;
+
+            while(size-- > 0){
+                int ip = que.removeFirst(); // infected person
+
+                if(vis[ip]) continue;
+
+                vis[ip] = true;
+                infectedCount++;
+
+                for(Edge e : graph[ip]){
+                    if(!vis[e.nbr])
+                        que.addLast(e.nbr);
+                }
+
+            }
+
+            day++;
+        }
+        return infectedCount;
+    }
+
+    public static boolean bipartite(ArrayList<Edge>[] graph, int src , int[] vis){
+        LinkedList<Integer> que = new LinkedList<>();
+        que.addLast(src);
+        int color = 0;   // 0 : red , 1 : green
+        boolean cycle = false, isBipartite = true;
+        
+        while(que.size() != 0 ){
+            int size = que.size();
+           
+            while(size-- > 0){
+               int rvtx = que.removeFirst();
+
+               if(vis[rvtx] != -1){  // cycle present,already visited, check for conflict
+                cycle = true;
+                if(vis[rvtx] != color){  // conflict
+                    isBipartite = false;
+                    break;
+                }
+                    continue;  // not any conflict 
+               }
+
+               vis[rvtx] = color;
+               for(Edge e : graph[rvtx]){
+                   if(vis[e.nbr] == -1){
+                       que.addLast(e.nbr);
+                   }
+               }
+            }
+            color = (color + 1) % 2;    // set for next
+        }
+
+        if(cycle){
+            if(isBipartite) System.out.println("Even Length cycle");
+            else System.out.println("Odd Length Cycle");
+        }
+        else{
+            System.out.println("A-Cyclic and Bipartite Graph");
+        }
+
+        return isBipartite;
+    }
+
+    public static void bipartite(ArrayList<Edge>[] graph){
+        int N = graph.length;
+        int[] vis = new int[N];
+        Arrays.fill(vis,-1);
+
+        // there may be more than one component present in the graph 
+        // so we have to pass every vertex of that graph
+        boolean isBipartite =  true;
+        for(int i =0; i< N ; i++){
+            if(vis[i] == -1)
+              isBipartite = isBipartite && bipartite(graph,i,vis); 
+        }
+        System.out.println("Overall graph is Bipartite : " + isBipartite);
+    }
 
 
    public static void construction(){
@@ -426,10 +640,10 @@ public class l001{
         // removeVertex(graph, 4);
         // // removeEdge(graph,0,3);
         // display(graph,N);
-        boolean[] vis = new boolean[N];
-        String psf = "";
+        // boolean[] vis = new boolean[N];
+        // String psf = "";
         // printAllPaths(graph,0,6,vis,psf);
-        int wsf = 0;
+        // int wsf = 0;
         // preOrder_(graph,0,vis,wsf,psf);
         // System.out.println();
         // postOrder_(graph,0,vis,wsf,psf);
@@ -440,7 +654,15 @@ public class l001{
 
         // hamiltonianPathCycle_(graph,0);
 
-        BFS(graph,0,6);
+        // BFS(graph,0,6);
+
+        // cycleDetection(graph);
+
+        // printBFSPath(graph,0);
+
+        bipartite(graph);
+
+       
    }
 
 
