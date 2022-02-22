@@ -619,6 +619,44 @@ public class l001{
         System.out.println("Overall graph is Bipartite : " + isBipartite);
     }
 
+    // leetcode 785 bipartite
+    // see for each loop bcz in question we have give graph as 2d array.
+    // also search diff ways to apply for each loop on 2d array(see on stack overflow)
+    public static boolean bipartite(int[][] graph, int src , int[] vis){
+        LinkedList<Integer> que = new LinkedList<>();
+        que.addLast(src);
+        int color = 0;
+        
+        boolean cycle = false, isBipartite = true;
+        
+        while(que.size()!=0){
+            int size = que.size();
+            while(size-- > 0){
+                int rvtx = que.removeFirst();
+                
+                if(vis[rvtx] != -1){
+                    cycle = true;
+                    if(vis[rvtx] != color){
+                        isBipartite = false;
+                        break;
+                    }
+                    
+                    continue;
+                }
+                
+                vis[rvtx] = color;
+                for(int e : graph[rvtx] ){
+                   
+                        if(vis[e] == -1){
+                            que.addLast(e);
+                        
+                    }
+                }
+            }
+            color = (color + 1)%2;
+        }
+        return isBipartite;
+    }
 
    public static void construction(){
        int N = 7;
