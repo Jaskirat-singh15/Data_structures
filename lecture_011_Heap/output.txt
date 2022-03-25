@@ -1,0 +1,60 @@
+Company: Samsung
+Model: ultra20
+Ram: 18GB
+Storage: 1000GB
+BatteryBackup: 5100mAH
+
+Company: Samsung
+Model: ultra20
+Ram: 12GB
+Storage: 1000GB
+BatteryBackup: 5200mAH
+
+Company: Samsung
+Model: ultra20
+Ram: 12GB
+Storage: 1000GB
+BatteryBackup: 5100mAH
+
+Company: onePlus
+Model: 8Pro
+Ram: 12GB
+Storage: 128GB
+BatteryBackup: 4230mAH
+
+Company: Apple
+Model: iphone12Pro
+Ram: 12GB
+Storage: 128GB
+BatteryBackup: 4120mAH
+
+Company: onePlus
+Model: 8Pro
+Ram: 12GB
+Storage: 64GB
+BatteryBackup: 4230mAH
+
+Company: Apple
+Model: iphone12
+Ram: 12GB
+Storage: 64GB
+BatteryBackup: 4100mAH
+
+Company: onePlus
+Model: 8Pro
+Ram: 12GB
+Storage: 64GB
+BatteryBackup: 4100mAH
+
+Company: vivo
+Model: k9
+Ram: 12GB
+Storage: 64GB
+BatteryBackup: 4100mAH
+
+Company: Apple
+Model: iphone12Pro
+Ram: 8GB
+Storage: 64GB
+BatteryBackup: 4100mAH
+
