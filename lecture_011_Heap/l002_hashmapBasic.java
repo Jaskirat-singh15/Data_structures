@@ -93,20 +93,30 @@ public class l002_hashmapBasic{
         }
     }
 
-    public static void indexOfChar(String str){
+    public static void IndexOfChar(String str){
         HashMap<Character,ArrayList<Integer>> map = new HashMap<>();
 
-        for(int i = 0; i<str.length(); i++){
+        // for(int i = 0; i<str.length(); i++){
+        //     char ch = str.charAt(i);
+
+        //     if(!map.containsKey(ch))
+        //         map.put(ch,new ArrayList<>());
+
+        //     map.get(ch).add(i);
+
+        // }
+
+        for(int i =0 ; i< str.length(); i++){
             char ch = str.charAt(i);
-
-            if(!map.containsKey(ch))
-                map.put(ch,new ArrayList<>());
-
+            map.putIfAbsent(ch,new ArrayList<>());
             map.get(ch).add(i);
-
         }
 
-        System.out.println(map);
+        // System.out.println(map);
+         for(char ch : map.keySet() ){
+            System.out.println(ch + " -> " + map.get(ch));
+        }
+        
     }
     
     public static void main(String[] args){
@@ -114,9 +124,9 @@ public class l002_hashmapBasic{
         // HashMapBasic();
         String str = scn.next();
 
-        frequency(str);
+        // frequency(str);
 
-        // indexOfChar(str);
+        IndexOfChar(str);
 
     }
 }
