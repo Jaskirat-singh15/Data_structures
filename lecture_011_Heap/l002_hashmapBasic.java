@@ -130,21 +130,81 @@ public class l002_hashmapBasic{
     }
 
     public static void intersectionWithoutDuplicate(int[] arr1 , int[] arr2){
+        HashMap<Integer, Integer > map = new HashMap<>();
+
+       for(int ele : arr1){
+           map.put(ele,map.getOrDefault(ele,0) + 1);
+       }
+
+       for(int ele : arr2){
+           if(map.containsKey(ele)){
+               System.out.println(ele);
+               map.remove(ele);
+           }
+       }
+    }
+
+    public static void intersectionWithDuplicate(int[] arr1, int[] arr2){
+
+        HashMap<Integer,Integer> map = new HashMap<>();
+
+        for(int ele : arr1){
+            map.put(ele,map.getOrDefault(ele,0) + 1);
+        }
+
+        for(int ele : arr2){
+            if(map.containsKey(ele)){
+                System.out.println(ele);
+                map.put(ele,map.get(ele) - 1);
+                if(map.get(ele) == 0)
+                    map.remove(ele);
+            }
+        }
 
     }
 
-    public static void intersetionWithDuplicate(int[] arr1, int[] arr2){
+    public static void highestFreqCharacter(String str){
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for(int i = 0; i < str.length(); i++){
+            char ch = str.charAt(i);
+            map.put(ch,map.getOrDefault(ch,0) + 1);
+        }
+
+        int maxfreq = 0;
+        char ans = '\u0000'; // this code store null in character (always in single qoutes)
+        for(char ch : map.keySet()){
+            if(map.get(ch) > maxfreq){
+                maxfreq = map.get(ch);
+                ans = ch;
+            }
+        }
+
+        System.out.println(ans);
 
     }
     
     public static void main(String[] args){
 
         // HashMapBasic();
-        String str = scn.next();
+        // String str = scn.next();
 
         // frequency(str);
 
-        IndexOfChar(str);
+        // IndexOfChar(str);
+
+        int n1 = scn.nextInt();
+    int[] arr1 = new int[n1];
+    for(int i =0; i < n1 ; i++){
+        arr1[i] = scn.nextInt();
+    }
+    int n2 = scn.nextInt();
+    int[] arr2 = new int[n2];
+    for(int i =0; i < n2 ; i++){
+        arr2[i] = scn.nextInt();
+    }
+    
+    intersectionWithoutDuplicate( arr1 ,  arr2);
 
     }
 }
