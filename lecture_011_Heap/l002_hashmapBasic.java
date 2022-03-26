@@ -91,6 +91,16 @@ public class l002_hashmapBasic{
         for(char ch : map.keySet() ){
             System.out.println(ch + " -> " + map.get(ch));
         }
+
+        // on portal required to ptint the highest frequency character
+        char mfc = str.charAt(0);
+        for(char ch : map.keySet()){
+            
+            if(map.get(ch) > map.get(mfc) )
+                mfc = ch;
+            
+        }
+        System.out.println(mfc);
     }
 
     public static void IndexOfChar(String str){
@@ -117,6 +127,14 @@ public class l002_hashmapBasic{
             System.out.println(ch + " -> " + map.get(ch));
         }
         
+    }
+
+    public static void intersectionWithoutDuplicate(int[] arr1 , int[] arr2){
+
+    }
+
+    public static void intersetionWithDuplicate(int[] arr1, int[] arr2){
+
     }
     
     public static void main(String[] args){
