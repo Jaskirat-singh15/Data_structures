@@ -62,13 +62,48 @@ public class l002_hashmapBasic{
     public static void frequency(String str){
         HashMap<Character,Integer> map = new HashMap<>();
 
+        // for(int i = 0; i < str.length(); i++){
+        //     char ch = str.charAt(i);
+
+        //     if(map.containsKey(ch))
+        //         map.put(ch,map.get(ch) + 1);
+        //     else 
+        //     map.put(ch, 0+1 ); 
+        // }
+
+        // best method - used function getOrDefault
         for(int i = 0; i < str.length(); i++){
             char ch = str.charAt(i);
+            map.put(ch,map.getOrDefault(ch,0) + 1);
+        }
 
-            if(map.containsKey(ch))
-                map.put(ch,map.get(ch) + 1);
-            else 
-            map.put(ch, 0+1 ); 
+        // not that good method becuse using put twice but possible
+        // for(int i = 0; i < str.length(); i++){
+        //     char ch = str.charAt(i);
+
+        //     map.putIfAbsent(ch,0);
+        //     map.put(ch,map.get(ch) + 1);
+        // }
+
+        // System.out.println(map);
+
+        // if want to print without syso
+        for(char ch : map.keySet() ){
+            System.out.println(ch + " -> " + map.get(ch));
+        }
+    }
+
+    public static void indexOfChar(String str){
+        HashMap<Character,ArrayList<Integer>> map = new HashMap<>();
+
+        for(int i = 0; i<str.length(); i++){
+            char ch = str.charAt(i);
+
+            if(!map.containsKey(ch))
+                map.put(ch,new ArrayList<>());
+
+            map.get(ch).add(i);
+
         }
 
         System.out.println(map);
@@ -78,7 +113,10 @@ public class l002_hashmapBasic{
 
         // HashMapBasic();
         String str = scn.next();
+
         frequency(str);
+
+        // indexOfChar(str);
 
     }
 }
