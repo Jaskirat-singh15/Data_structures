@@ -37,8 +37,14 @@ public class heap{
     public heap(int[] data , boolean isMaxHeap ){
         this(isMaxHeap);
 
-        for(int ele : data) this.arr.add(ele);
+        for(int ele : data) 
+            this.arr.add(ele);
+
         this.noOfEle = this.arr.size();
+
+        for(int i = noOfEle -1 ; i >= 0 ; i--){
+            downHeapify(i);
+        }
 
     }
 
@@ -59,7 +65,40 @@ public class heap{
         return this.noOfEle == 0;
     }
 
-     // DS functions.====================================================
+    // DS functions.====================================================
+
+    public int compareTo(int t , int o){
+        if(isMaxHeap){
+            return this.arr.get(t) - this.arr.get(o);
+        }
+        else{
+            return this.arr.get(o) - this.arr.get(t);
+        }
+    }
+
+    private void swap(int i , int j){
+        int ei = this.arr.get(i);
+        int e2 = this.arr.get(j);
+
+        this.arr.set(i,e2);
+        this.arr.set(j,e1);
+    }
+
+    private void downHeapify(int pi){
+        int maxIdx = pi, lci = pi*2 + 1, rci = pi*2 + 2;
+
+        if(lci < this.noOfEle && compareTo(lci,maxIdx) > 0){
+            maxIdx = lci;
+        }
+        if(rci < this.noOfEle && compareTo(rci , maxIdx) > 0){
+            maxIdx = rci;
+        }
+
+        if(maxIdx != pi){
+            swap(pi , maxIdx);
+            downHeapify(maxIdx);
+        }
+    }
 
     public int peek() throws Exception {
         underFlowException();
@@ -68,6 +107,7 @@ public class heap{
 
     public int remove() throws Exception{
         underFlowException();
+        
 
     }
 
