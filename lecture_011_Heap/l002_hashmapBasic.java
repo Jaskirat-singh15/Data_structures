@@ -30,7 +30,7 @@ public class l002_hashmapBasic{
 
         System.out.println(map); // will print all the key value pairs
 
-        //other way to print
+        //to print keys 
         ArrayList<String> keys = new ArrayList<>(map.keySet()); // will give a set of all keys to arrayist
         System.out.println(keys);
 

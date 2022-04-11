@@ -105,10 +105,22 @@ public class heap{
         this.arr.get(0);
     }
 
+    // thought by my own . // dont know if work for all test cases
+    //Wrong Code // Wrong approach
+    // private int unHeapify(int pi){
+    //     int lci =  pi*2 + 1, rci = pi*2 + 2;
+    //     if(lci > this.noOfEle-1 || rci > this.noOfEle-1){
+    //         this.arr.remove(pi);
+    //         this.noOfEle--;
+    //     }
+    //     int maxIdx = compareTo(lci,rci);
+    //     this.arr.set(pi,this.arr.get(maxIdx));
+    //     unHeapify(maxIdx);
+    // }
+
     public int remove() throws Exception{
         underFlowException();
-        
-
+        unHeapify(0);
     }
 
     public void add(int data){
