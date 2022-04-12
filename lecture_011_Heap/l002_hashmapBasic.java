@@ -183,28 +183,104 @@ public class l002_hashmapBasic{
         System.out.println(ans);
 
     }
+
+    // longest consecutive sequence 
+    // on portal test case failed for equal length according to this code 
+    // see below code
+    public static void lcqs(int[] arr){
+        HashSet<Integer> set = new HashSet<>();
+        for(int ele: arr){
+            set.add(ele);
+        }
+        
+        int len = 0 , head = 0;
+        for(int ele : arr){
+            if(!set.contains(ele))
+                continue;
+            
+            int left = ele - 1 , right = ele + 1;
+            set.remove(ele);
+            
+            while(set.contains(left))
+                set.remove(left--);
+            
+            while(set.contains(right))
+                set.remove(right++);
+                
+            if(right-left-1 > len){
+                len = right-left-1;
+                head = left + 1;
+            }
+            
+        }
+        
+        for(int i = 0; i < len ; i++){
+            System.out.println(head + i);
+        }
+    }
+
+    // trying to pass failed test case
+    public static void lcqs_02(int[] arr){
+        HashSet<Integer> set = new HashSet<>();
+        for(int ele: arr){
+            set.add(ele);
+        }
+        
+        int len = 0 , head = 0;
+        for(int ele : arr){
+            if(!set.contains(ele))
+                continue;
+            
+            int left = ele - 1 , right = ele + 1;
+            set.remove(ele);
+            
+            while(set.contains(left))
+                set.remove(left--);
+            
+            while(set.contains(right))
+                set.remove(right++);
+                
+            if(right-left-1 >= len){
+                if(right-left-1 == len){
+                    if(left+1 < head){
+                       head = left + 1; 
+                    }
+                }
+                else{
+                len = right-left-1;
+                head = left + 1;
+                }
+                
+            }
+            
+        }
+        
+        for(int i = 0; i < len ; i++){
+            System.out.println(head + i);
+        }
+    }
     
     public static void main(String[] args){
 
-        // HashMapBasic();
+        HashMapBasic();
         // String str = scn.next();
 
         // frequency(str);
 
         // IndexOfChar(str);
 
-        int n1 = scn.nextInt();
-    int[] arr1 = new int[n1];
-    for(int i =0; i < n1 ; i++){
-        arr1[i] = scn.nextInt();
-    }
-    int n2 = scn.nextInt();
-    int[] arr2 = new int[n2];
-    for(int i =0; i < n2 ; i++){
-        arr2[i] = scn.nextInt();
-    }
+    //     int n1 = scn.nextInt();
+    // int[] arr1 = new int[n1];
+    // for(int i =0; i < n1 ; i++){
+    //     arr1[i] = scn.nextInt();
+    // }
+    // int n2 = scn.nextInt();
+    // int[] arr2 = new int[n2];
+    // for(int i =0; i < n2 ; i++){
+    //     arr2[i] = scn.nextInt();
+    // }
     
-    intersectionWithoutDuplicate( arr1 ,  arr2);
+    // intersectionWithoutDuplicate( arr1 ,  arr2);
 
     }
 }
