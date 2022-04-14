@@ -34,6 +34,7 @@ public class heap{
 
     // also the first line of a constructor must be a constructor call
     // after that you can write whatever code you want to.
+    // O(N) --> full mathematical proof done in notes
     public heap(int[] data , boolean isMaxHeap ){
         this(isMaxHeap);
 
@@ -105,25 +106,36 @@ public class heap{
         this.arr.get(0);
     }
 
-    // thought by my own . // dont know if work for all test cases
-    //Wrong Code // Wrong approach
-    // private int unHeapify(int pi){
-    //     int lci =  pi*2 + 1, rci = pi*2 + 2;
-    //     if(lci > this.noOfEle-1 || rci > this.noOfEle-1){
-    //         this.arr.remove(pi);
-    //         this.noOfEle--;
-    //     }
-    //     int maxIdx = compareTo(lci,rci);
-    //     this.arr.set(pi,this.arr.get(maxIdx));
-    //     unHeapify(maxIdx);
-    // }
-
+    //O(LogN)
+    private void upHeapify(int ci){
+        int pi = (ci-1)/2;
+        if(pi >= 0 && compareTo(ci,pi) >  0){
+            swap(ci,pi);
+            upHeapify(pi);
+        }
+    }
+    
+    // O(LogN)
     public int remove() throws Exception{
         underFlowException();
-        unHeapify(0);
+        
+        int rEle = this.arr.get(0);
+        swap(0,this.noOfEle-1);
+        this.arr.remove(this.noOfEle-1);
+
+        this.noOfEle--;
+        downHeapify(0);
+
+        return rEle;
     }
 
+    // O(LogN)
     public void add(int data){
+
+        this.arr.add(data);
+        this.noOfEle++;
+
+        upHeapify(this.noOfEle-1);
 
     }
 
