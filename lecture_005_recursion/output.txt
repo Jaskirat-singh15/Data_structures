@@ -1,13 +1,1 @@
-2
-3
-4
-45
-56
-78
-98
--11
--3
--29
-456
-4
-665
+[, d, c, cd, b, bd, bc, bcd, a, ad, ac, acd, ab, abd, abc, abcd]

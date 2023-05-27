@@ -81,6 +81,40 @@ public class questions{
         }
     }
 
+        // giving error on portal
+      public static ArrayList<Integer> mergeKSortedLists(ArrayList<ArrayList<Integer>> lists){
+      ArrayList<Integer> rv = new ArrayList<>();
+        
+      int n = lists.size();
+      int m = lists.get(0).size();
+      
+      PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->{
+          
+          int r1 = a/m , c1 = a%m , r2 = b/m , c2 = b%m;
+          return lists.get(r1).get(c1) - lists.get(r2).get(c2);
+          
+      });
+      
+      for(int i = 0; i < lists.size(); i++){
+          pq.add(i*m + 0);
+      }
+      
+    //   System.out.println(pq);
+      
+      while(pq.size() != 0){
+          Integer eidx = pq.remove();
+          int r = eidx/m , c = eidx%m;
+          rv.add(lists.get(r).get(c));
+          
+          c++;
+          if(c < m){
+               pq.add(r*m + c);
+          }
+            
+      }
+      return rv;
+   }
+
     public static void main(String[] args){
         int n = scn.nextInt();
         int[] arr = new int[n];

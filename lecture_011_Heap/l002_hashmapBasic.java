@@ -220,6 +220,7 @@ public class l002_hashmapBasic{
     }
 
     // trying to pass failed test case
+    // passed successfuly on pepcoding website
     public static void lcqs_02(int[] arr){
         HashSet<Integer> set = new HashSet<>();
         for(int ele: arr){

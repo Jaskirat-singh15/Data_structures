@@ -102,6 +102,7 @@ public class l001 {
     // System.out.println("enter marks of the student");
     // int marks = scn.nextInt();
     // gradingSystem(marks);
+    
 
     // System.out.println("enter number to be checked");
     // int num = scn.nextInt();

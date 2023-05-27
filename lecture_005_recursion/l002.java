@@ -109,6 +109,8 @@ public class l002{
         return recAns;
     }
 
+    // dry run to understand
+    // wrong code // sir ke github se liya hai // not passing on portal
     public static boolean firstAndLastIndex(int[] arr, int idx, int data , int[] ans){
         if(idx == arr.length)
             return false;
